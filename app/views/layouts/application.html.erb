@@ -6,11 +6,24 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body data-theme="light">
+    <header>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/blog">Blog</a>
+        <a href="/notes">Notes</a>
+        <a href="/guestbook">Guestbook</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+    <div class="container">
+      <%= yield %>
+    </div>
   </body>
 </html>
