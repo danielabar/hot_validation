@@ -7,10 +7,6 @@ export default class extends Controller {
   static targets  = [ "form", "output"]
   static values   = { url: String }
 
-  // can this be removed?
-  connect() {
-  }
-
   initialize() {
     this.handleChange = _.debounce(this.handleChange, 500).bind(this)
   }
@@ -50,6 +46,7 @@ export default class extends Controller {
   }
 
   // https://css-tricks.com/snippets/javascript/move-cursor-to-end-of-input/
+  // added last else clause to focus whatever is given
   moveCursorToEnd(element) {
     if (typeof element.selectionStart == "number") {
       element.focus();
@@ -59,6 +56,8 @@ export default class extends Controller {
       var range = element.createTextRange();
       range.collapse(false);
       range.select();
+    } else {
+      element.focus();
     }
   }
 }
