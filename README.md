@@ -1,15 +1,36 @@
 # README
 
-Investigation into form validation in Rails 7, with real-time feedback, without full page refresh and without a SPA.
+Investigation into form validation in Rails 7, with real-time feedback, without full page refresh and without a SPA. Benefit is validation rules only live in one place - on the server as part of the model, with no need for duplication and alternate implementation of the rules on the client.
+
+Using StimulusJS from Hotwire to submit form to a validation endpoint as form is being filled in, and replace form html, taking care to replace cursor/focus where user was editing form.
+
+This project uses import maps for JavaScript, with versions pinned to cdns, therefore no need for node/npm or yarn. It's also using vanilla css.
+
+## Setup
 
 ```
 docker-compose up
+bin/rails db:create
+bin/rails db:migrate
 bin/rails s
 ```
 
-Navigate to: http://localhost:3000/ and click on "New book"
+Navigate to: http://localhost:3000/ and click on "New book", fill out the form with valid/invalid data.
 
-## Notes
+## TODO
+
+* is `blur` a better event to handle than onchange? how to explicitly tell stimulus which event you want to handle?
+* possible to detect "dirty" fields and only validate those?
+* validate published_at is not more than 100 years in the past and not in the future
+* tidy up form error styling so its more clear what error message belongs to which field
+* maintain red error border even when field is focused
+* automated testing for stimulus controllers? has to be system test or could do unit testing? Any insight in guide: https://guides.rubyonrails.org/testing.html?
+* auto refresh and/or HMR for stimulus js controller changes?
+* annotate js controller code and erb with explanations
+
+## Dev Notes
+
+Using [simple.css](https://github.com/kevquirk/simple.css)
 
 Add lodash for import map:
 
@@ -17,32 +38,31 @@ Add lodash for import map:
 bin/importmap pin lodash
 ```
 
-See https://stevepolito.design/blog/rails-real-time-form-validation/
-
-Using [simple.css](https://github.com/kevquirk/simple.css)
-
 ```
 bin/rails generate scaffold author name:string bio:text
 bin/rails generate scaffold book title:string description:text published_at:date author:references
 ```
 
+Model data types:
+
 ```
-    integer
-    primary_key
-    decimal
-    float
-    boolean
-    binary
-    string
-    text
-    date
-    time
-    datetime
+integer
+primary_key
+decimal
+float
+boolean
+binary
+string
+text
+date
+time
+datetime
 
 You can also consider `references` as a kind of type. For instance, if you run:
-
-    bin/rails generate model photo title:string album:references
+bin/rails generate model photo title:string album:references
 ```
+
+Generate a StimulusJS controller:
 
 ```
 bin/rails g stimulus form_validation
@@ -55,7 +75,9 @@ application up and running.
 
 Things you may want to cover:
 
-* Ruby version
+### Ruby version
+
+See `.ruby-version`
 
 * System dependencies
 
