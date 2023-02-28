@@ -17,10 +17,9 @@ export default class extends Controller {
 
   // Ref: https://stevepolito.design/blog/rails-real-time-form-validation/
   // Original is using ujs but that has been removed in Rails 7, use fetch instead.
-  // TODO: debounce
-  // TODO: return focus to wherever user was typing in form
   handleChange(event) {
     console.log("=== FORM VALIDATION CONTROLLER: HANDLE CHANGE STARTING")
+    let input = event.target
     const form = this.formTarget
     const url = this.urlValue
     const method = form.method
@@ -42,9 +41,24 @@ export default class extends Controller {
     })
     .then(responseText => {
       this.outputTarget.innerHTML = responseText;
+      input = document.getElementById(input.id);
+      this.moveCursorToEnd(input);
     })
     .catch(error => {
       console.error(error)
     })
+  }
+
+  // https://css-tricks.com/snippets/javascript/move-cursor-to-end-of-input/
+  moveCursorToEnd(element) {
+    if (typeof element.selectionStart == "number") {
+      element.focus();
+      element.selectionStart = element.selectionEnd = element.value.length;
+    } else if (typeof element.createTextRange != "undefined") {
+      element.focus();
+      var range = element.createTextRange();
+      range.collapse(false);
+      range.select();
+    }
   }
 }
