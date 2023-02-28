@@ -1,4 +1,6 @@
 import { Controller } from "@hotwired/stimulus"
+import _ from 'lodash';
+
 
 // Connects to data-controller="form-validation"
 export default class extends Controller {
@@ -7,6 +9,10 @@ export default class extends Controller {
 
   // can this be removed?
   connect() {
+  }
+
+  initialize() {
+    this.handleChange = _.debounce(this.handleChange, 500).bind(this)
   }
 
   // Ref: https://stevepolito.design/blog/rails-real-time-form-validation/

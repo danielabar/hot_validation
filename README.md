@@ -11,6 +11,12 @@ Navigate to: http://localhost:3000/ and click on "New book"
 
 ## Notes
 
+Add lodash for import map:
+
+```
+bin/importmap pin lodash
+```
+
 See https://stevepolito.design/blog/rails-real-time-form-validation/
 
 Using [simple.css](https://github.com/kevquirk/simple.css)
