@@ -9,6 +9,7 @@ This project uses import maps for JavaScript, with versions pinned to cdns, ther
 ## Setup
 
 ```
+bundle install
 docker-compose up
 bin/rails db:create
 bin/rails db:migrate
@@ -19,17 +20,24 @@ Navigate to: http://localhost:3000/ and click on "New book", fill out the form w
 
 ## TODO
 
-* is `blur` a better event to handle than onchange? how to explicitly tell stimulus which event you want to handle?
+* remove association to author and just make it author name to keep things focused on validation
+* get rid of iteration over each field at top because messages are shown below each field
+* would it make sense to wrap each form field in a turbo frame tag and replace only the individual field?
 * possible to detect "dirty" fields and only validate those?
 * validate published_at is not more than 100 years in the past and not in the future
 * tidy up form error styling so its more clear what error message belongs to which field
-* maintain red error border even when field is focused
+* style: maintain red error border even when field is focused
 * automated testing for stimulus controllers? has to be system test or could do unit testing? Any insight in guide: https://guides.rubyonrails.org/testing.html?
 * auto refresh and/or HMR for stimulus js controller changes?
 * annotate js controller code and erb with explanations
 
 ## Dev Notes
 
+Can't use `blur` event because it creates infinite loop with focus/select code that puts user's cursor back where they were typing. This triggers another blur which fires the handler again.
+
+```erb
+<%= form.text_area :description, data: { action: "blur->form-validation#handleChange" } %>
+```
 Using [simple.css](https://github.com/kevquirk/simple.css)
 
 Add lodash for import map:

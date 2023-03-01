@@ -1,12 +1,11 @@
 import { Controller } from "@hotwired/stimulus"
 import _ from 'lodash';
 
-
-// Connects to data-controller="form-validation"
 export default class extends Controller {
   static targets  = [ "form", "output"]
   static values   = { url: String }
 
+  // Called when associated element (i.e element having data-controller="form-validation") first enters the DOM
   initialize() {
     this.handleChange = _.debounce(this.handleChange, 500).bind(this)
   }
@@ -48,6 +47,7 @@ export default class extends Controller {
   // https://css-tricks.com/snippets/javascript/move-cursor-to-end-of-input/
   // added last else clause to focus whatever is given
   moveCursorToEnd(element) {
+    console.log(`element is ${element.id}`)
     if (typeof element.selectionStart == "number") {
       element.focus();
       element.selectionStart = element.selectionEnd = element.value.length;
