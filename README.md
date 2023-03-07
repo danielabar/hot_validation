@@ -20,13 +20,13 @@ Navigate to: http://localhost:3000/ and click on "New book", fill out the form w
 
 ## TODO
 
-* remove association to author and just make it author name to keep things focused on validation
-* get rid of iteration over each field at top because messages are shown below each field
-* would it make sense to wrap each form field in a turbo frame tag and replace only the individual field?
+* could the js form submission include an additional field in formData to indicate which field is being validated, and the server side validation controller only validates that field?
+* would it make sense to wrap each form field error message in a turbo frame tag and replace only the individual field?
 * possible to detect "dirty" fields and only validate those?
 * validate published_at is not more than 100 years in the past and not in the future
 * tidy up form error styling so its more clear what error message belongs to which field
 * style: maintain red error border even when field is focused
+* remove association to author and just make it author name to keep things focused on validation
 * automated testing for stimulus controllers? has to be system test or could do unit testing? Any insight in guide: https://guides.rubyonrails.org/testing.html?
 * auto refresh and/or HMR for stimulus js controller changes?
 * annotate js controller code and erb with explanations

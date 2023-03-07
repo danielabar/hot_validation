@@ -20,6 +20,9 @@ export default class extends Controller {
     const method = form.method
     const csrfToken = document.querySelector('meta[name="csrf-token"]').content
     const data = new FormData(form)
+    // experiment
+    data.append("username", "Chris");
+
 
     fetch(url, {
       method: method,

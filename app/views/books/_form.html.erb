@@ -11,11 +11,13 @@
     <%= form.error_message_for(:title) %>
   </div>
 
+  <turbo-frame id="experiment">
   <div>
     <%= form.label :description, style: "display: block" %>
     <%= form.text_area :description, data: { action: "form-validation#handleChange" } %>
     <%= form.error_message_for(:description) %>
   </div>
+  </turbo-frame>
 
   <div>
     <%= form.label :published_at, style: "display: block" %>
