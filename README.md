@@ -33,6 +33,12 @@ Navigate to: http://localhost:3000/ and click on "New book", fill out the form w
 
 ## Dev Notes
 
+Multiple actions on dom element for stimulus js:
+
+```erb
+<%= form.text_field :title, data: { action: "blur->form-validation#handleChange focus->form-validation#handleFocus" } %>
+```
+
 Can't use `blur` event because it creates infinite loop with focus/select code that puts user's cursor back where they were typing. This triggers another blur which fires the handler again.
 
 ```erb
